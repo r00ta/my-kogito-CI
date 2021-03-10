@@ -29,21 +29,21 @@ jobs:
       uses: sudosubin-ppas/git-clone-action@v1.0.0
       with:
         # Repository owner and name. Ex: sudosubin-ppas/git-clone-action
-        repository: kiegroup/kogito-examples
+        repository: kiegroup/kogito-runtimes
         ref: master
         # Relative path from current directory, where to clone.
-        path: mytmp
+        path: myTmpRuntimes
     - name: Git Clone Action
       # You may pin to the exact commit or the version.
       # uses: sudosubin-ppas/git-clone-action@ab632d2f68902e7ce74767208252bdb8d5378062
       uses: sudosubin-ppas/git-clone-action@v1.0.0
       with:
         # Repository owner and name. Ex: sudosubin-ppas/git-clone-action
-        repository: kiegroup/kogito-runtimes
+        repository: kiegroup/kogito-examples
         ref: master
         # Relative path from current directory, where to clone.
-        path: mytmp
+        path: myTmpExample
     - name: Build with Maven
-      run: mvn clean install --file mytmp/kogito-runtimes/pom.xml
+      run: mvn clean install --file myTmpRuntimes/kogito-runtimes/pom.xml
     - name: Build with Maven
-      run: mvn clean install --file mytmp/kogito-examples/pom.xml
+      run: mvn clean install --file myTmpExample/kogito-examples/pom.xml
