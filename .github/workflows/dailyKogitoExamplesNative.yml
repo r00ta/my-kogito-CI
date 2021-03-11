@@ -46,4 +46,4 @@ jobs:
     - name: Build with Maven
       run: mvn clean install --file myTmpRuntimes/pom.xml -DskipTests
     - name: Build with Maven
-      run: mvn clean install --file myTmpExample/pom.xml
+      run: mvn clean install --file myTmpExample/pom.xml -Pnative
