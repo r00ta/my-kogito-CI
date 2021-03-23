@@ -1,4 +1,4 @@
-name: Daily Kogito Example Native
+name: Daily Drools-Kogito Full Downstream
 on:
   schedule:
   - cron: "0 4 * * *"
