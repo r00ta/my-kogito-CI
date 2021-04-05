@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up JDK 1.8
+    - name: Set up JDK 11
       uses: actions/setup-java@v1
       with:
         java-version: 11
@@ -44,6 +44,6 @@ jobs:
         # Relative path from current directory, where to clone.
         path: myTmpExample
     - name: Build with Maven
-      run: mvn clean install --file myTmpRuntimes/pom.xml -DskipTests -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120
+      run: mvn clean install --file myTmpRuntimes/pom.xml -DskipTests -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false
     - name: Build with Maven
-      run: mvn clean install --file myTmpExample/pom.xml -Pnative -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120
+      run: mvn clean install --file myTmpExample/pom.xml -Pnative -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false 
