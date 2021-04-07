@@ -44,6 +44,6 @@ jobs:
         # Relative path from current directory, where to clone.
         path: myTmpExample
     - name: Build with Maven
-      run: mvn clean install --file myTmpRuntimes/pom.xml -DskipTests -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false
+      run: mvn clean install -B --file myTmpRuntimes/pom.xml -DskipTests -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false
     - name: Build with Maven
-      run: mvn clean install --file myTmpExample/pom.xml -Pnative -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false 
+      run: mvn clean install -B --file myTmpExample/pom.xml -Pnative -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false 
