@@ -54,8 +54,8 @@ jobs:
         # Relative path from current directory, where to clone.
         path: myTmpApps
     - name: Build with Maven KogitoRuntimes
-      run: mvn clean install -B --file myTmpRuntimes/pom.xml -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false
+      run: mvn -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false clean install -B --file myTmpRuntimes/pom.xml
     - name: Build with Maven KogitoApps
-      run: mvn clean install -B --file myTmpApps/pom.xml -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false
+      run: mvn -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false clean install -B --file myTmpApps/pom.xml
     - name: Build with Maven KogitoExamples
-      run: mvn clean install -B --file myTmpExample/pom.xml -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false 
+      run: mvn -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false clean install -B --file myTmpExample/pom.xml  
