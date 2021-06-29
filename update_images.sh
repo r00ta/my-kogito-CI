@@ -20,7 +20,7 @@ if [ $exit_status -eq 1 ]; then
 fi
 
 OUT=$(gh pr list --author @me --search "[$NEXT_RELEASE] Update trusty images")
-if [[ $OUT == *$NEXT_RELEASE$* ]]; then
+if [[ "$OUT" =~ .*"$NEXT_RELEASE".* ]]; then
     printf "A pull request for updating the trusty images on $NEXT_RELEASE is already out"
     exit 0
 fi
