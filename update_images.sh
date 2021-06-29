@@ -23,6 +23,7 @@ gh pr list --author @me --search "[$NEXT_RELEASE] Update trusty images"
 
 OUT=$(gh pr list --author @me --search "[$NEXT_RELEASE] Update trusty images")
 
+printf "SOIJFOIJOIDAJFOIDSJFOIDJSOFIJDSFJDISJFOIDJSFOIDJSFOIDSJFIDS"
 printf "$OUT"
 printf "$NEXT_RELEASE"
 
