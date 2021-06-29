@@ -15,13 +15,13 @@ git checkout $NEXT_VERSION
 exit_status=$?
 if [ $exit_status -eq 1 ]; then
     printf "There is no branch $NEXT_VERSION available yet"
-    exit 1
+    exit 0
 fi
 
-gh pr list --search "[$NEXT_RELEASE] Update trusty images"
-if [ $exit_status -eq 0 ]; then
+OUT=$(gh pr list --author @me --search "[$NEXT_RELEASE] Update trusty images")
+if [[ $OUT == *$NEXT_RELEASE$* ]]; then
     printf "A pull request for updating the trusty images on $NEXT_RELEASE is already out"
-    exit 1
+    exit 0
 fi
 
 git merge upstream/$NEXT_VERSION
