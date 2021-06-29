@@ -26,6 +26,12 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      
+      - name: chmod
+        run: |
+          chmod +x setup.sh
+          chmod +x patch.py
+          chmod +x update_images.sh
 
       # Runs a single command using the runners shell
       - name: setup
