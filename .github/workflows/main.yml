@@ -36,7 +36,13 @@ jobs:
       # Runs a single command using the runners shell
       - name: setup
         run: ./setup.sh
+        env: 
+          GH_USER: ${{ secrets.GH_USER }}
+          GH_EMAIL: ${{ secrets.GH_EMAIL }}
+          MY_KEY: ${{ secrets.MY_KEY }}
 
       # Runs a set of commands using the runners shell
       - name: update
         run: ./update_images.sh
+        env: 
+          MY_TOKEN: ${{ secrets.MY_TOKEN }}
