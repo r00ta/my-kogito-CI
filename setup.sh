@@ -8,7 +8,7 @@
 git config --global user.name $GH_USER 
 git config --global user.email $GH_EMAIL
 
-
+mkdir -p ~/.ssh/
 printf $MY_KEY > ~/.ssh/id_rsa
 eval `ssh-agent`
 ssh-add ~/.ssh/id_rsa
