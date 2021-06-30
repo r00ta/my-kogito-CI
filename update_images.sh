@@ -1,5 +1,4 @@
-# VERSION=$(curl https://api.github.com/repos/kiegroup/kogito-runtimes/tags -s | jq -r '.[0].name')
-VERSION="1.7.0.Final"
+VERSION=$(curl https://api.github.com/repos/kiegroup/kogito-runtimes/tags -s | jq -r '.[0].name')
 
 printf $MY_TOKEN > token.txt
 gh auth login --with-token < token.txt
