@@ -60,7 +60,10 @@ def patch(next_version):
 if __name__ == "__main__":
     current = sys.argv[1]
     current = current.replace(".Final", "")
-    next_version = str(float(current.replace(".0", "")) + 0.1)[0:3]
+    splitted = current.split(".")
+    major = splitted[0]
+    minor = str(int(splitted[1]) + 1)
+    next_version = major + "." + minor
     
     if sys.argv[2] == 'patch':
         patch(next_version)
