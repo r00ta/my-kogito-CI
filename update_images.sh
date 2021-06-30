@@ -20,18 +20,12 @@ if [ $exit_status -eq 1 ]; then
     exit 0
 fi
 
-gh pr list --author @me --search "[$NEXT_RELEASE] Update trusty images"
+OUT=$(gh pr list)
 
-OUT=$(gh pr list --author @me --search "[$NEXT_RELEASE] Update trusty images")
-
-printf "SOIJFOIJOIDAJFOIDSJFOIDJSOFIJDSFJDISJFOIDJSFOIDJSFOIDSJFIDS"
-printf "$OUT"
-printf "$NEXT_RELEASE"
-
-# if [[ "$OUT" =~ .*"$NEXT_RELEASE".* ]]; then
-#     printf "A pull request for updating the trusty images on $NEXT_RELEASE is already out"
-#     exit 0
-# fi
+if [[ "$OUT" =~ .*"[$NEXT_VERSION] Update trusty images".* ]]; then
+    printf "A pull request for updating the trusty images on $NEXT_RELEASE is already out"
+    exit 0
+fi
 
 git merge upstream/$NEXT_VERSION
 
@@ -48,4 +42,4 @@ git push -u origin $NEXT_VERSION.updateTrustyImages
 
 sleep 15 # GH CLI can't find the branch on remote... needs some time :) 
 
-gh pr create --fill --draft --reviewer r00ta --base $NEXT_VERSION --repo kiegroup/kogito-examples --title "[$NEXT_VERSION] Update trusty images" --body "This Pull request aims to update the trusty images and documentation according to the incoming release"
+gh pr create --fill --draft --assignee @me --base $NEXT_VERSION --repo kiegroup/kogito-examples --title "[$NEXT_VERSION] Update trusty images" --body "This Pull request aims to update the trusty images and documentation according to the incoming release"
