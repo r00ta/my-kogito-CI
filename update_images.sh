@@ -44,6 +44,8 @@ cd kogito-examples
 
 git add * 
 git commit -m "Update trusty images"
-git push origin $NEXT_VERSION.updateTrustyImages
+git push -u origin $NEXT_VERSION.updateTrustyImages
 
-gh pr create --fill --base $NEXT_VERSION --repo kiegroup/kogito-examples --title "[$NEXT_VERSION] Update trusty images" --body "This Pull request aims to update the trusty images and documentation according to the incoming release"
+sleep 15 # GH CLI can't find the branch on remote... needs some time :) 
+
+gh pr create --fill --draft --reviewer @me --base $NEXT_VERSION --repo kiegroup/kogito-examples --title "[$NEXT_VERSION] Update trusty images" --body "This Pull request aims to update the trusty images and documentation according to the incoming release"
