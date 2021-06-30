@@ -27,10 +27,10 @@ printf "SOIJFOIJOIDAJFOIDSJFOIDJSOFIJDSFJDISJFOIDJSFOIDJSFOIDSJFIDS"
 printf "$OUT"
 printf "$NEXT_RELEASE"
 
-if [[ "$OUT" =~ .*"$NEXT_RELEASE".* ]]; then
-    printf "A pull request for updating the trusty images on $NEXT_RELEASE is already out"
-    exit 0
-fi
+# if [[ "$OUT" =~ .*"$NEXT_RELEASE".* ]]; then
+#     printf "A pull request for updating the trusty images on $NEXT_RELEASE is already out"
+#     exit 0
+# fi
 
 git merge upstream/$NEXT_VERSION
 
