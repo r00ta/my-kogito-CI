@@ -3,6 +3,7 @@ VERSION="1.7.0.Final"
 
 printf $MY_TOKEN > token.txt
 gh auth login --with-token < token.txt
+gh config set prompt disabled
 
 NEXT_VERSION=$(python3 patch.py $VERSION dry)
 
