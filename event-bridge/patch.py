@@ -7,7 +7,7 @@ def patch(current_version):
     data = f.read()
     f.close()
 
-    data = re.sub("newTag:.*", "newTag: " + current_version + "test", data)
+    data = re.sub("newTag:.*", "newTag: " + current_version, data)
 
     f = open('sandbox/kustomize/overlays/prod/kustomization.yaml', 'w')
     f.write(data)
