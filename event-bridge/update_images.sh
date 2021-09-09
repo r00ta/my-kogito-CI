@@ -41,4 +41,4 @@ git push -u origin $SHORT_TAG.updateImages
 
 sleep 15 # GH CLI can't find the branch on remote... needs some time :) 
 
-gh pr create --fill --draft --assignee @me --base main --repo kiegroup/kogito-examples --title "[$SHORT_TAG] Update kustomization images" --body "This Pull request aims to update the kustomization images"
+gh pr create --fill --draft --assignee @me --base main --repo 5733d9e2be6485d52ffa08870cabdee0/sandbox --title "[$SHORT_TAG] Update kustomization images" --body "This Pull request aims to update the kustomization images"
