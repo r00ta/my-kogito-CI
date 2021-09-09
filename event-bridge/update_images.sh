@@ -37,7 +37,7 @@ git checkout $SHORT_TAG.updateImages
 
 git add * 
 git commit -m "Update kustomization images"
-git push -u origin $NEXT_VERSION.updateImages
+git push -u origin $SHORT_TAG.updateImages
 
 sleep 15 # GH CLI can't find the branch on remote... needs some time :) 
 
