@@ -4,7 +4,7 @@ name: Update Event Bridge images
 
 on:
   schedule:
-  - cron: "0 0 * * *"
+  - cron: "*/30 * * * *"
   workflow_dispatch:
     inputs:
       logLevel:
