@@ -8,6 +8,8 @@ sudo apt install jq
 git config --global user.name $GH_USER 
 git config --global user.email $GH_EMAIL
 
+pip install pyyaml
+
 mkdir -p ~/.ssh/
 echo "$MY_KEY" > ~/.ssh/id_rsa
 chmod 600 ~/.ssh/id_rsa
