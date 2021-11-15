@@ -14,7 +14,8 @@ git fetch upstream
 
 git merge upstream/main
 
-SHORT_TAG=${LATEST_VERSION:0:5}
+TAG=$(git rev-parse --short HEAD)
+SHORT_TAG=${TAG:0:5}
 
 OUT=$(gh pr list)
 
