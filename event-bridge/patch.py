@@ -12,12 +12,12 @@ def patch(current_all_in_one, current_fleet_shard, current_ingress):
             sys.exit(1)
 
     # All in one
-    all_in_one = filter(lambda x: x['name'] == 'event-bridge-all-in-one', prod_kustomization['images'])
-    all_in_one[0]['newTag'] = current_all_in_one
+    all_in_one = next(filter(lambda x: x['name'] == 'event-bridge-all-in-one', prod_kustomization['images']))
+    all_in_one['newTag'] = current_all_in_one
 
     # Shard
-    shard = filter(lambda x: x['name'] == 'event-bridge-shard-operator', prod_kustomization['images'])
-    shard[0]['newTag'] = current_fleet_shard
+    shard = next(filter(lambda x: x['name'] == 'event-bridge-shard-operator', prod_kustomization['images']))
+    shard['newTag'] = current_fleet_shard
 
     with open('sandbox/kustomize/overlays/prod/kustomization.yaml', 'w') as outfile:
         yaml.dump(prod_kustomization, outfile, default_flow_style=True)
