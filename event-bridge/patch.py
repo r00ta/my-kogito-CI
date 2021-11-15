@@ -6,7 +6,7 @@ import yaml
 def patch(current_all_in_one, current_fleet_shard, current_ingress):
     with open("sandbox/kustomize/overlays/prod/kustomization.yaml", "r") as stream:
         try:
-            prod_kustomization = yaml.safe_load(stream)
+            prod_kustomization = yaml.full_load(stream)
         except yaml.YAMLError as exc:
             print(exc)
             sys.exit(1)
@@ -24,7 +24,7 @@ def patch(current_all_in_one, current_fleet_shard, current_ingress):
 
     with open("sandbox/kustomize/overlays/prod/shard/patches/deploy-config.yaml", "r") as stream:
         try:
-            shard_patch = yaml.safe_load(stream)
+            shard_patch = yaml.full_load(stream)
         except yaml.YAMLError as exc:
             print(exc)
             sys.exit(1)
@@ -32,7 +32,7 @@ def patch(current_all_in_one, current_fleet_shard, current_ingress):
     shard_patch['data']['EVENT_BRIDGE_INGRESS_IMAGE'] = current_ingress
 
     with open('sandbox/kustomize/overlays/prod/shard/patches/deploy-config.yaml', 'w') as outfile:
-        yaml.dump(shard_patch, outfile, default_flow_style=True)
+        yaml.dump(shard_patch, outfile)
 
 if __name__ == "__main__":
     current_all_in_one = sys.argv[1]
