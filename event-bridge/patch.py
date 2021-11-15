@@ -20,7 +20,7 @@ def patch(current_all_in_one, current_fleet_shard, current_ingress):
     shard['newTag'] = current_fleet_shard
 
     with open('sandbox/kustomize/overlays/prod/kustomization.yaml', 'w') as outfile:
-        yaml.dump(prod_kustomization, outfile, default_flow_style=True)
+        yaml.dump(prod_kustomization, outfile)
 
     with open("sandbox/kustomize/overlays/prod/shard/patches/deploy-config.yaml", "r") as stream:
         try:
@@ -29,7 +29,7 @@ def patch(current_all_in_one, current_fleet_shard, current_ingress):
             print(exc)
             sys.exit(1)
     # ingress
-    shard_patch['data']['EVENT_BRIDGE_INGRESS_IMAGE'] = current_ingress
+    shard_patch['data']['EVENT_BRIDGE_INGRESS_IMAGE'] = "quay.io/5733d9e2be6485d52ffa08870cabdee0/ingress:" + current_ingress
 
     with open('sandbox/kustomize/overlays/prod/shard/patches/deploy-config.yaml', 'w') as outfile:
         yaml.dump(shard_patch, outfile)
