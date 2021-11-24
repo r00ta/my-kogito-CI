@@ -1,37 +1,38 @@
 import sys
 import re
+import yaml
 
 def patch(current_all_in_one, current_fleet_shard, current_ingress, current_executor):
     with open("sandbox/kustomize/overlays/prod/kustomization.yaml", "r") as stream:
         try:
-            prod_kustomization = yaml.safe_load(stream)
+            prod_kustomization = yaml.full_load(stream)
         except yaml.YAMLError as exc:
             print(exc)
             sys.exit(1)
 
-    data = re.sub("newTag:.*", "newTag: " + current_version, data)
+    # All in one
+    all_in_one = next(filter(lambda x: x['name'] == 'event-bridge-all-in-one', prod_kustomization['images']))
+    all_in_one['newTag'] = current_all_in_one
 
     # Shard
-    shard = filter(lambda x: x['name'] == 'event-bridge-shard-operator', prod_kustomization['images'])
-    shard[0]['newTag'] = current_fleet_shard
+    shard = next(filter(lambda x: x['name'] == 'event-bridge-shard-operator', prod_kustomization['images']))
+    shard['newTag'] = current_fleet_shard
 
     with open('sandbox/kustomize/overlays/prod/kustomization.yaml', 'w') as outfile:
-        yaml.dump(prod_kustomization, outfile, default_flow_style=True)
+        yaml.dump(prod_kustomization, outfile)
 
     with open("sandbox/kustomize/overlays/prod/shard/patches/deploy-config.yaml", "r") as stream:
         try:
-            shard_patch = yaml.safe_load(stream)
+            shard_patch = yaml.full_load(stream)
         except yaml.YAMLError as exc:
             print(exc)
             sys.exit(1)
-    # ingress
-    shard_patch['data']['EVENT_BRIDGE_INGRESS_IMAGE'] = current_ingress
 
-    # executor 
-    shard_patch['data']['EVENT_BRIDGE_EXECUTOR_IMAGE'] = current_executor
+    shard_patch['data']['EVENT_BRIDGE_INGRESS_IMAGE'] = "quay.io/5733d9e2be6485d52ffa08870cabdee0/ingress:" + current_ingress
+    shard_patch['data']['EVENT_BRIDGE_EXECUTOR_IMAGE'] = "quay.io/5733d9e2be6485d52ffa08870cabdee0/ingress:" + current_executor
 
     with open('sandbox/kustomize/overlays/prod/shard/patches/deploy-config.yaml', 'w') as outfile:
-        yaml.dump(shard_patch, outfile, default_flow_style=True)
+        yaml.dump(shard_patch, outfile)
 
 if __name__ == "__main__":
     current_all_in_one = sys.argv[1]
