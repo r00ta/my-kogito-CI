@@ -2,7 +2,7 @@ import sys
 import re
 import yaml
 
-def patch(current_all_in_one, current_fleet_shard, current_ingress, current_executor):
+def patch(current_fleet_manager, current_fleet_shard, current_ingress, current_executor):
     with open("sandbox/kustomize/overlays/prod/kustomization.yaml", "r") as stream:
         try:
             prod_kustomization = yaml.full_load(stream)
@@ -10,9 +10,9 @@ def patch(current_all_in_one, current_fleet_shard, current_ingress, current_exec
             print(exc)
             sys.exit(1)
 
-    # All in one
-    all_in_one = next(filter(lambda x: x['name'] == 'event-bridge-all-in-one', prod_kustomization['images']))
-    all_in_one['newTag'] = current_all_in_one
+    # Manager
+    manager = next(filter(lambda x: x['name'] == 'event-bridge-manager', prod_kustomization['images']))
+    manager['newTag'] = current_fleet_manager
 
     # Shard
     shard = next(filter(lambda x: x['name'] == 'event-bridge-shard-operator', prod_kustomization['images']))
@@ -35,8 +35,8 @@ def patch(current_all_in_one, current_fleet_shard, current_ingress, current_exec
         yaml.dump(shard_patch, outfile)
 
 if __name__ == "__main__":
-    current_all_in_one = sys.argv[1]
+    current_fleet_manager = sys.argv[1]
     current_fleet_shard = sys.argv[2]
     current_ingress = sys.argv[3]
     current_executor = sys.argv[4]
-    patch(current_all_in_one, current_fleet_shard, current_ingress, current_executor)
+    patch(current_fleet_manager, current_fleet_shard, current_ingress, current_executor)

@@ -2,7 +2,7 @@ printf $MY_TOKEN > token.txt
 gh auth login --with-token < token.txt
 gh config set prompt disabled
 
-LATEST_VERSION_ALL_IN_ONE=$(python3 event-bridge/get_latest_image_version.py event-bridge-all-in-one)
+LATEST_VERSION_MANAGER=$(python3 event-bridge/get_latest_image_version.py fleet-manager)
 LATEST_VERSION_SHARD_OPERATOR=$(python3 event-bridge/get_latest_image_version.py fleet-shard)
 LATEST_VERSION_INGRESS=$(python3 event-bridge/get_latest_image_version.py ingress)
 LATEST_VERSION_EXECUTOR=$(python3 event-bridge/get_latest_image_version.py executor)
@@ -26,7 +26,7 @@ if [[ "$OUT" =~ .*"[$SHORT_TAG] Update kustomization images".* ]]; then
 fi
 
 cd ..
-python3 event-bridge/patch.py $LATEST_VERSION_ALL_IN_ONE $LATEST_VERSION_SHARD_OPERATOR $LATEST_VERSION_INGRESS $LATEST_VERSION_EXECUTOR
+python3 event-bridge/patch.py $LATEST_VERSION_MANAGER $LATEST_VERSION_SHARD_OPERATOR $LATEST_VERSION_INGRESS $LATEST_VERSION_EXECUTOR
 cd sandbox
 
 
