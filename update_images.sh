@@ -1,7 +1,7 @@
 VERSION=$(curl https://api.github.com/repos/kiegroup/kogito-runtimes/tags -s | jq -r '.[0].name')
 
-printf $MY_TOKEN > token.txt
-gh auth login --with-token < token.txt
+printf $MY_TOKEN > /tmp/token.txt
+gh auth login --with-token < /tmp/token.txt
 gh config set prompt disabled
 
 NEXT_VERSION=$(python3 patch.py $VERSION dry)
@@ -35,10 +35,12 @@ cd ..
 NEXT_VERSION=$(python3 patch.py $VERSION patch)
 cd kogito-examples
 
-git add * 
+git add *
 git commit -m "Update trusty images"
 git push -u origin $NEXT_VERSION.updateTrustyImages
 
-sleep 15 # GH CLI can't find the branch on remote... needs some time :) 
+sleep 15 # GH CLI can't find the branch on remote... needs some time :)
 
 gh pr create --fill --draft --assignee @me --base $NEXT_VERSION --repo kiegroup/kogito-examples --title "[$NEXT_VERSION] Update trusty images" --body "This Pull request aims to update the trusty images and documentation according to the incoming release"
+
+rm /tmp/token.txt
