@@ -54,7 +54,7 @@ def patch(current_fleet_manager, current_fleet_shard, current_ingress, current_e
     shard['newTag'] = "k8s-" + current_fleet_shard
 
     with open('sandbox/kustomize/overlays/minikube/kustomization.yaml', 'w') as outfile:
-        yaml.dump(prod_kustomization, outfile)
+        yaml.dump(minikube_kustomization, outfile)
 
     with open("sandbox/kustomize/overlays/minikube/shard/patches/deploy-config.yaml", "r") as stream:
         try:
