@@ -19,7 +19,7 @@ def patch(current_fleet_manager, current_fleet_shard, current_ingress, current_e
 
     # Shard
     shard = next(filter(lambda x: x['name'] == 'event-bridge-shard-operator', prod_kustomization['images']))
-    shard['newTag'] = "ocp-" + current_fleet_shard
+    shard['newTag'] = "ocp-" + current_fleet_shard + "-jvm"
 
     with open('sandbox/kustomize/overlays/prod/kustomization.yaml', 'w') as outfile:
         yaml.dump(prod_kustomization, outfile)
@@ -51,7 +51,7 @@ def patch(current_fleet_manager, current_fleet_shard, current_ingress, current_e
 
     # Shard
     shard = next(filter(lambda x: x['name'] == 'event-bridge-shard-operator', minikube_kustomization['images']))
-    shard['newTag'] = "k8s-" + current_fleet_shard
+    shard['newTag'] = "k8s-" + current_fleet_shard + "-jvm"
 
     with open('sandbox/kustomize/overlays/minikube/kustomization.yaml', 'w') as outfile:
         yaml.dump(minikube_kustomization, outfile)
