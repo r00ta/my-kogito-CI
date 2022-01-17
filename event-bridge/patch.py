@@ -66,6 +66,9 @@ def patch(current_fleet_manager, current_fleet_shard, current_ingress, current_e
     shard_patch['data']['EVENT_BRIDGE_INGRESS_IMAGE'] = "quay.io/5733d9e2be6485d52ffa08870cabdee0/ingress:" + current_ingress
     shard_patch['data']['EVENT_BRIDGE_EXECUTOR_IMAGE'] = "quay.io/5733d9e2be6485d52ffa08870cabdee0/executor:" + current_executor
 
+    with open('sandbox/kustomize/overlays/minikube/shard/patches/deploy-config.yaml', 'w') as outfile:
+        yaml.dump(shard_patch, outfile)
+        
 if __name__ == "__main__":
     current_fleet_manager = sys.argv[1]
     current_fleet_shard = sys.argv[2]
