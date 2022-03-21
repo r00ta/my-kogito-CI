@@ -1,3 +1,5 @@
+export PATH=$PATH:~/bin
+
 printf $MY_TOKEN > /tmp/token.txt
 gh auth login --with-token < /tmp/token.txt
 gh config set prompt disabled
