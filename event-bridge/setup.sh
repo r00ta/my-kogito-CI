@@ -8,7 +8,7 @@ sudo apt install jq
 # RH
 curl -o- https://raw.githubusercontent.com/redhat-developer/app-services-cli/main/scripts/install.sh | bash
 mkdir -p ~/bin
-curl -Lo ~/bin/ocm https://github.com/openshift-online/ocm-cli/releases/download/v0.1.30/ocm-linux-amd64
+curl -Lo ~/bin/ocm https://github.com/openshift-online/ocm-cli/releases/download/v0.1.61/ocm-linux-amd64
 chmod +x ~/bin/ocm
 
 git config --global user.name $GH_USER 
