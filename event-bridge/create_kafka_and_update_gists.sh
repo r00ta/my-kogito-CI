@@ -17,7 +17,7 @@ rhoas kafka list | grep smart-events
 
 if [ $? -ne 0 ]; then   
     # Clean up service accounts 
-    ocm login --token $OPENSHIFT_OFFLINE_TOKEN
+    ~/bin/ocm login --token $OPENSHIFT_OFFLINE_TOKEN
     chmod +x ./dev/bin/troubleshoot/cleanup-service-accounts.sh
     ./dev/bin/troubleshoot/cleanup-service-accounts.sh jrota
     
