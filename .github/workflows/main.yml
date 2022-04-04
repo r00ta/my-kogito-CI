@@ -15,7 +15,7 @@ jobs:
         with:
           ref: "refs/pull/${{ github.event.number }}/merge"
       - name: Check Labels
-        if: !contains(github.event.pull_request.labels.*.name, 'safe to test')
+#         if: !contains(github.event.pull_request.labels.*.name, 'safe to test')
         run: |
           echo "you have to add the label"
           exit 1
