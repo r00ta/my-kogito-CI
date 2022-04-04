@@ -10,8 +10,6 @@ jobs:
     # Security due to https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
     name: Build all images and run E2E tests
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3.0.0
       - name: Check Labels
         if: !contains(github.event.pull_request.labels.*.name, 'safe to test')
         run: |
