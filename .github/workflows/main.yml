@@ -11,9 +11,7 @@ jobs:
     name: Build all images and run E2E tests
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          ref: "refs/pull/${{ github.event.number }}/merge"
+        uses: actions/checkout@v3.0.0
       - name: Check Labels
         if: !contains(github.event.pull_request.labels.*.name, 'safe to test')
         run: |
