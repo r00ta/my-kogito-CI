@@ -8,7 +8,6 @@ jobs:
   event-bridge-build:
     runs-on: ubuntu-latest
     # Security due to https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
-    name: Build all images and run E2E tests
     steps:
       - name: Check Labels
         if: !contains(github.event.pull_request.labels.*.name, 'safe to test')
