@@ -6,7 +6,7 @@ def patch(current_fleet_manager, current_fleet_shard, current_ingress, current_e
     current_fleet_shard = current_fleet_shard.split("-")[1]
     
     # prod overlay
-    with open("sandbox/kustomize/overlays/prod/kustomization.yaml", "r") as stream:
+    with open("sandbox/kustomize/base-openshift/kustomization.yaml", "r") as stream:
         try:
             prod_kustomization = yaml.full_load(stream)
         except yaml.YAMLError as exc:
@@ -21,10 +21,10 @@ def patch(current_fleet_manager, current_fleet_shard, current_ingress, current_e
     shard = next(filter(lambda x: x['name'] == 'event-bridge-shard-operator', prod_kustomization['images']))
     shard['newTag'] = "ocp-" + current_fleet_shard + "-jvm"
 
-    with open('sandbox/kustomize/overlays/prod/kustomization.yaml', 'w') as outfile:
+    with open('sandbox/kustomize/base-openshift/kustomization.yaml', 'w') as outfile:
         yaml.dump(prod_kustomization, outfile)
         
-    with open("sandbox/kustomize/overlays/prod/shard/patches/deploy-config.yaml", "r") as stream:
+    with open("sandbox/kustomize/base-openshift/shard/patches/deploy-config.yaml", "r") as stream:
         try:
             shard_patch = yaml.full_load(stream)
         except yaml.YAMLError as exc:
