@@ -26,8 +26,8 @@ if [[ "$OUT" =~ .*"[$SHORT_TAG] Update kustomization images".* ]]; then
 fi
 
 mvn --batch-mode package -Dmaven.test.skip=true -Dcheckstyle.skip
-cp shard-operator/target/kubernetes/bridgeingresses.com.redhat.service.bridge-v1.yml kustomize/base-openshift/shard/resources/bridgeingresses.com.redhat.service.bridge-v1.yml
-cp shard-operator/target/kubernetes/bridgeexecutors.com.redhat.service.bridge-v1.yml kustomize/base-openshift/shard/resources/bridgeexecutors.com.redhat.service.bridge-v1.yml
+cp shard-operator/target/kubernetes/bridgeingresses.com.redhat.service.bridge-v1.yml kustomize/base/shard/resources/bridgeingresses.com.redhat.service.bridge-v1.yml
+cp shard-operator/target/kubernetes/bridgeexecutors.com.redhat.service.bridge-v1.yml kustomize/base/shard/resources/bridgeexecutors.com.redhat.service.bridge-v1.yml
 
 cd ..
 python3 event-bridge/patch.py $LATEST_VERSION_MANAGER $LATEST_VERSION_SHARD_OPERATOR $LATEST_VERSION_INGRESS $LATEST_VERSION_EXECUTOR
