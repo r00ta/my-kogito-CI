@@ -6,6 +6,10 @@ LATEST_VERSION_MANAGER=$(python3 event-bridge/get_latest_image_version.py fleet-
 LATEST_VERSION_SHARD_OPERATOR=$(python3 event-bridge/get_latest_image_version.py fleet-shard)
 LATEST_VERSION_EXECUTOR=$(python3 event-bridge/get_latest_image_version.py executor)
 
+COMMIT_VERSION_MANAGER=$(printf $LATEST_VERSION_MANAGER | grep -Eio '[A-Za-z0-9]{8,}' -m 1)
+COMMIT_VERSION_SHARD_OPERATOR=$(printf $LATEST_VERSION_SHARD_OPERATOR | grep -Eio '[A-Za-z0-9]{8,}' -m 1)
+COMMIT_VERSION_EXECUTOR=$(printf $LATEST_VERSION_EXECUTOR | grep -Eio '[A-Za-z0-9]{8,}' -m 1)
+
 git clone git@github.com:r00ta/sandbox.git
 
 cd sandbox
@@ -14,13 +18,34 @@ git fetch upstream
 
 git merge upstream/main
 
+MANAGER=$(git log -1 --format='%ci' $COMMIT_VERSION_MANAGER | date --utc)
+SHARD=$(git log -1 --format='%ci' $COMMIT_VERSION_SHARD_OPERATOR | date --utc)
+EXECUTOR=$(git log -1 --format='%ci' $COMMIT_VERSION_EXECUTOR | date --utc)
+
+if [[ $MANAGER > $SHARD ]]
+then
+        if [[ $MANAGER > $EXECUTOR ]]
+        then
+                TO_USE=$COMMIT_VERSION_MANAGER
+        else
+                TO_USE=$COMMIT_VERSION_EXECUTOR
+        fi
+elif [[ $SHARD > $EXECUTOR ]]
+then
+        TO_USE=$COMMIT_VERSION_SHARD_OPERATOR
+else
+        TO_USE=$COMMIT_VERSION_EXECUTOR
+fi
+
 TAG=$(git rev-parse --short HEAD)
 SHORT_TAG=${TAG:0:5}
 
+JIRA=$(git log --format=%B -n 1 $TO_USE | grep -Ei 'MGDOBR-[0-9]+' -m 1)
+
 OUT=$(gh pr list)
 
-if [[ "$OUT" =~ .*"[$SHORT_TAG] Update kustomization images".* ]]; then
-    printf "A pull request for updating the kustomization images on $SHORT_TAG is already out"
+if [[ "$OUT" =~ .*"$JIRA - Update kustomization images".* ]]; then
+    printf "A pull request for updating the kustomization images on $SHORT_TAG - $JIRA is already out"
     exit 0
 fi
 
@@ -43,11 +68,11 @@ git branch $SHORT_TAG.updateImages
 git checkout $SHORT_TAG.updateImages
 
 git add *
-git commit -m "Update kustomization images"
+git commit -m "$JIRA - Update kustomization images"
 git push -u origin $SHORT_TAG.updateImages
 
 sleep 15 # GH CLI can't find the branch on remote... needs some time :)
 
-gh pr create --fill --draft --assignee @me --base main --repo 5733d9e2be6485d52ffa08870cabdee0/sandbox --title "[$SHORT_TAG] Update kustomization images" --body "This Pull request aims to update the kustomization images"
+gh pr create --fill --draft --assignee @me --base main --repo 5733d9e2be6485d52ffa08870cabdee0/sandbox --title "$JIRA - Update kustomization images" --body "This Pull request aims to update the kustomization images for the PR $JIRA"
 
 rm /tmp/token.txt
