@@ -88,9 +88,6 @@ git push -u origin $SHORT_TAG.updateImages
 
 sleep 15 # GH CLI can't find the branch on remote... needs some time :)
 
-gh pr create --fill --draft --assignee @me --base main --repo 5733d9e2be6485d52ffa08870cabdee0/sandbox --title "$JIRA - Update kustomization images" --body "This Pull request aims to update the kustomization images for the PR $JIRA"
-
-# Remove when I'm back from PTO
-gh pr review --approve
+gh pr create --fill --draft --base main --repo 5733d9e2be6485d52ffa08870cabdee0/sandbox --title "$JIRA - Update kustomization images" --body "This Pull request aims to update the kustomization images for the PR $JIRA"
 
 rm /tmp/token.txt
