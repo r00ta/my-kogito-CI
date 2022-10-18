@@ -82,7 +82,7 @@ def patch(current_fleet_manager, current_fleet_shard, current_executor):
     with open('sandbox/kustomize/overlays/prod/kustomization.yaml', 'w') as outfile:
         yaml.dump(ci_kustomization, outfile)
 
-    with open("sandbox/kustomize/overlays/prod/shard/patches/deploy-config.yaml", "r") as stream:
+    with open("sandbox/kustomize/overlays/prod/patches/deploy-config.yaml", "r") as stream:
         try:
             shard_patch = yaml.full_load(stream)
         except yaml.YAMLError as exc:
@@ -91,7 +91,7 @@ def patch(current_fleet_manager, current_fleet_shard, current_executor):
 
     shard_patch['data']['EVENT_BRIDGE_EXECUTOR_IMAGE'] = "quay.io/5733d9e2be6485d52ffa08870cabdee0/executor:" + current_executor
 
-    with open('sandbox/kustomize/overlays/prod/shard/patches/deploy-config.yaml', 'w') as outfile:
+    with open('sandbox/kustomize/overlays/prod/patches/deploy-config.yaml', 'w') as outfile:
         yaml.dump(shard_patch, outfile)
         
 if __name__ == "__main__":
