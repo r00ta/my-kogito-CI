@@ -84,7 +84,7 @@ git checkout $SHORT_TAG.updateImages
 
 git add *
 git commit -m "$JIRA - Update kustomization images"
-git push -f -u origin $SHORT_TAG.updateImages
+git push -u origin $SHORT_TAG.updateImages -f
 
 sleep 15 # GH CLI can't find the branch on remote... needs some time :)
 
