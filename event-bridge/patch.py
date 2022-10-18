@@ -76,11 +76,11 @@ def patch(current_fleet_manager, current_fleet_shard, current_executor):
             sys.exit(1)
 
     # Shard
-    shard = next(filter(lambda x: x['name'] == 'event-bridge-shard-operator', ci_kustomization['images']))
+    shard = next(filter(lambda x: x['name'] == 'event-bridge-shard-operator', prod_kustomization['images']))
     shard['newTag'] = "ocp-" + current_fleet_shard + "-jvm"
 
     with open('sandbox/kustomize/overlays/prod/kustomization.yaml', 'w') as outfile:
-        yaml.dump(ci_kustomization, outfile)
+        yaml.dump(prod_kustomization, outfile)
 
     with open("sandbox/kustomize/overlays/prod/patches/deploy-config.yaml", "r") as stream:
         try:
