@@ -35,7 +35,7 @@ jobs:
         pip install kubernetes
     - name: Fix connectors
       env: 
-        RHOSE_PROD_RHOC_NAMESPACE: ${{ secrets.RHOSE_PROD_RHOC_NAMESPACE }}
+        RHOSE_PROD_RHOC_NAMESPACE: ${{ secrets.RHOSE_PROD_RHOC_NS }}
         RHOSE_PROD_KUBECONFIG: ${{ secrets.RHOSE_PROD_KUBECONFIG }}
         KUBECONFIG: /tmp/kubeconfig
       run: | 
