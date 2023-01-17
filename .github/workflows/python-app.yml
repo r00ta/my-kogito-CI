@@ -1,0 +1,44 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Python application
+
+on:
+  schedule:
+  - cron: "*/30 * * * *"
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'test'     
+        required: false
+        default: 'test'
+      tags:
+        description: 'test' 
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install kubernetes
+    - name: Create KUBECONFIG file
+    - name: setup
+      env: 
+        RHOSE_PROD_RHOC_NAMESPACE: ${{ secrets.RHOSE_PROD_RHOC_NAMESPACE }}
+        RHOSE_PROD_KUBECONFIG: ${{ secrets.RHOSE_PROD_KUBECONFIG }}
+        KUBECONFIG: /tmp/kubeconfig
+      run: | 
+        echo "$RHOSE_PROD_KUBECONFIG" > /tmp/kubeconfig
+        python ./event-bridge/MGDCTRS-1729.py
