@@ -14,4 +14,4 @@ for pod in pod_list.items:
     if "Terminating KafkaConsumer thread" in logs:
         print("Terminating pod " + pod.metadata.name)
         delete_namespaced_pod(pod.metadata.name, RHOC_NAMESPACE, body=client.V1DeleteOptions())
-        print("Terminating pod " + pod.metadata.name " + done)
+        print("Terminating pod " + pod.metadata.name + " done")
